@@ -11,4 +11,9 @@ class RealtingSpider(scrapy.Spider):
     start_urls = [settings.get('START_URL')]
 
     def parse(self, response):
-        print(response)
+        links = response.css('.gl > a::attr(href)').extract()
+        for link in links:
+            scraped_info = {
+                'id': link.split("/")[-1],
+            }
+            yield scraped_info
