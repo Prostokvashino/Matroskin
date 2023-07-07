@@ -11,9 +11,21 @@ class RealtingSpider(scrapy.Spider):
     start_urls = [settings.get('START_URL')]
 
     def parse(self, response):
-        links = response.css('.gl > a::attr(href)').extract()
-        for link in links:
-            scraped_info = {
-                'id': link.split("/")[-1],
-            }
-            yield scraped_info
+        apartment_page_links = response.css('.gl > a::attr(href)').extract()
+        yield from response.follow_all(apartment_page_links,
+                                       self.parse_apartment)
+        pagination_links = response.css('.dlf a')
+        yield from response.follow_all(pagination_links, self.parse)
+
+    def parse_apartment(self, response):
+        def extract_with_css(query):
+            return response.css(query).get(default='').strip()
+
+        yield {
+            'url': response.url,
+            'summary': extract_with_css('h1::text'),
+            'location': extract_with_css('.loc > a::attr(onclick)').split("'")[1],
+            'price': extract_with_css('.price > span::text'),
+            'about': dict(zip(response.css('.t::text').getall(),
+                              response.css('.i::text').getall())),
+        }
