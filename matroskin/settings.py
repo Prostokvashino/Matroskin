@@ -1,6 +1,6 @@
 # Scrapy settings for matroskin project
 
-START_URL = 'https://www.list.am/ru/category/60?n=8&price1=&price2=&crc=&_a5=0&_a39=0&_a40=0&_a85=0&_a73=0&_a3_1=&_a3_2=&_a4=0&_a37=0&_a36=0&_a11_1=&_a11_2=&_a41=0&_a78=0&_a38=0&_a82=0&_a77=0'
+START_URL = 'https://www.list.am/ru/category/60?type=1&n=8&price1=&price2=&crc=&_a5=0&_a39=0&_a40=0&_a85=0&_a73=0&_a3_1=&_a3_2=&_a4=0&_a37=0&_a36=0&_a11_1=&_a11_2=&_a41=0&_a78=0&_a38=0&_a82=0&_a77=0'
 
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
