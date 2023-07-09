@@ -24,6 +24,7 @@ class RealtingSpider(scrapy.Spider):
             return response.css(query).get(default='').strip()
 
         result = {
+            'id': response.url.split('/')[-1],
             'url': response.url,
             'summary': extract_with_css('h1::text'),
             'location': extract_with_css('.loc > a::attr(onclick)').split("'")[1],
